@@ -6,6 +6,7 @@
     <RootNamespace>SPJA Auction</RootNamespace>
     <InterpreterId>{44c18be5-05b6-4a86-80a4-7e4b5c280f33}</InterpreterId>
     <InterpreterVersion>3.4</InterpreterVersion>
+    <WebBrowserPort>8080</WebBrowserPort>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>

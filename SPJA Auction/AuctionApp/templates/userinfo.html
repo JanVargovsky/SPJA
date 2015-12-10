@@ -11,27 +11,30 @@
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="username">User name:</label>
                   <div class="col-sm-10">
-                    <p class="form-control-static">{{user.username}} ({{user.id}})</p>
+                    <p class="form-control-static">{{customuser.username}} ({{customuser.id}})</p>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="firstname">First name:</label>
                   <div class="col-sm-10">
-                    <p class="form-control-static">{{user.first_name}}</p>
+                    <p class="form-control-static">{{customuser.first_name}}</p>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="lastname">Last name:</label>
                   <div class="col-sm-10">
-                    <p class="form-control-static">{{user.last_name}}</p>
+                    <p class="form-control-static">{{customuser.last_name}}</p>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="email">Email:</label>
                   <div class="col-sm-10">
-                    <p class="form-control-static">{{user.email}}</p>
+                    <p class="form-control-static">{{customuser.email}}</p>
                   </div>
                 </div>
+                {% if showEdit %}
+                <a href="#" class="btn btn-default">Edit</a>
+                {% endif %}
             </div>
         </section>
     </div>

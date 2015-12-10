@@ -33,7 +33,6 @@ def users(request):
         {
             'title':'List of users',
             'users': User.objects,
-            'blah':'wat'
         }))
 
 def register(request):
@@ -46,28 +45,17 @@ def register(request):
             'title':'Register'
         }))
 
-def userinfo(request):
+def userinfo(request, username):
     """Renders the user info page."""
     assert isinstance(request, HttpRequest)
     return render(request,
         'userinfo.html',
         context_instance = RequestContext(request,
         {
-            'title':'User info2',
-            'fuck': 'fuck this',
-            'user': User.objects.get_by_natural_key('admin') #request.user if request.user.is_authenticated() else User.objects.get_by_natural_key(username),
+            'title':'User info',
+            'showEdit': username is None or (username is not None and  User.objects.get_by_natural_key(username) is request.user),
+            'customuser': request.user if username is None else User.objects.get_by_natural_key(username),
         }))
-
-def userinfo(request):
-    """Renders the user info page."""
-    assert isinstance(request, HttpRequest)
-    return render(request,
-        'userinfo.html',
-        context_instance = RequestContext(request,
-        {
-            'title':'User info'
-        }))
-
 
 #def contact(request):
 #    """Renders the contact page."""
