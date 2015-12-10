@@ -1,4 +1,4 @@
-"""
+﻿"""
 Django settings for SPJA_Auction project.
 """
 
@@ -14,9 +14,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.',
+        'ENGINE': 'django.db.backends.sqlite3',
         # Or path to database file if using sqlite3.
-        'NAME': '',
+        'NAME': 'db.sqlite3',
         # Not used with sqlite3.
         'USER': '',
         # Not used with sqlite3.
@@ -128,9 +128,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+     'django.contrib.admindocs',
+     'AuctionApp',
 )
 
 # A sample logging configuration. The only tangible logging

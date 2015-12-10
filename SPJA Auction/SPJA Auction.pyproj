@@ -30,6 +30,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AuctionApp\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AuctionApp\models.py" />
+    <Compile Include="AuctionApp\views.py" />
+    <Compile Include="AuctionApp\__init__.py" />
     <Compile Include="manage.py" />
     <Compile Include="SPJA_Auction\__init__.py" />
     <Compile Include="SPJA_Auction\settings.py" />
@@ -37,9 +43,44 @@
     <Compile Include="SPJA_Auction\wsgi.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AuctionApp\static\content\bootstrap.css" />
+    <Content Include="AuctionApp\static\content\bootstrap.min.css" />
+    <Content Include="AuctionApp\static\content\site.css" />
+    <Content Include="AuctionApp\static\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="AuctionApp\static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="AuctionApp\static\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="AuctionApp\static\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="AuctionApp\static\scripts\_references.js" />
+    <Content Include="AuctionApp\static\scripts\bootstrap.js" />
+    <Content Include="AuctionApp\static\scripts\bootstrap.min.js" />
+    <None Include="AuctionApp\static\scripts\jquery.validate-vsdoc.js" />
+    <None Include="AuctionApp\static\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="AuctionApp\static\scripts\jquery-1.10.2.js" />
+    <Content Include="AuctionApp\static\scripts\jquery-1.10.2.min.js" />
+    <Content Include="AuctionApp\static\scripts\jquery-1.10.2.min.map" />
+    <Content Include="AuctionApp\static\scripts\jquery.validate.js" />
+    <Content Include="AuctionApp\static\scripts\jquery.validate.min.js" />
+    <Content Include="AuctionApp\static\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="AuctionApp\static\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="AuctionApp\static\scripts\modernizr-2.6.2.js" />
+    <Content Include="AuctionApp\static\scripts\respond.js" />
+    <Content Include="AuctionApp\static\scripts\respond.min.js" />
+    <Content Include="AuctionApp\templates\index.html" />
+    <Content Include="AuctionApp\templates\layout.html" />
+    <Content Include="AuctionApp\templates\login.html" />
+    <Content Include="AuctionApp\templates\register.html" />
+    <Content Include="AuctionApp\templates\userinfo.html" />
+    <Content Include="AuctionApp\templates\users.html" />
+    <Content Include="db.sqlite3" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AuctionApp\" />
+    <Folder Include="AuctionApp\static\" />
+    <Folder Include="AuctionApp\static\content\" />
+    <Folder Include="AuctionApp\static\fonts\" />
+    <Folder Include="AuctionApp\static\scripts\" />
+    <Folder Include="AuctionApp\templates\" />
     <Folder Include="SPJA_Auction\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'content/site.css' %}" />
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">Auction</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+{% if user.is_authenticated %}
+                    <li><a href="{% url 'users' %}">Users</a></li>
+{% endif %}
+                </ul>
+{% if user.is_authenticated %}
+                <form id="logoutForm" action="/logout" method="post" class="navbar-right">
+                    {% csrf_token %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'userinfo' %}" class="navbar-brand">Hello {{ user.first_name }}!</a></li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    </ul>
+
+                </form>
+{% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'login' %}">Log in</a></li>
+                {#<li><a href="{% url 'register' %}">Register</a></li>#}
+            </ul>
+{% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <main class="container body-content">
+{% block content %}{% endblock %}
+        <hr/>
+        <footer class="text-center">
+            <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda</p>
+        </footer>
+    </main>
+</body>
+</html>
