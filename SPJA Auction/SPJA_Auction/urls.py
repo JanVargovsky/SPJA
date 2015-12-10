@@ -11,9 +11,10 @@ urlpatterns = patterns('',
      # main menu
      url(r'^$', views.home, name='home'),
      url(r'^users$', views.users, name='users'),
-     url(r'^userinfo$', views.userinfo, name='userinfo'),
-     #url(r'^userinfo/(?P<username>\w+)/$', views.userinfo, name='userinfo'),
 
+     url(r'^userinfo/?(?P<username>\w+)?/?$', views.userinfo, name='userinfo'),  
+     url(r'^userinfo/$', views.userinfo, name='userinfo'),
+     
      # TODO: Create register form...  do it as a last thing, because its
      # complex as fuck
      #url(r'^register', 'AuctionApp.views.register', name='register'),
