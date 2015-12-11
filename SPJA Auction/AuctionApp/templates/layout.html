@@ -23,11 +23,11 @@
             <nav class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'users' %}">Users</a></li>
+                    <li><a href="{% url 'users' %}"><span class="glyphicon glyphicon-user"></span> Users</a></li>
                     <li><a href="{% url 'createitem' %}"><span class="glyphicon glyphicon-plus"></span> Create item</a></li>
-                    <li><a href="{% url 'useritems' %}">My items</a></li>
-                    <li><a href="{% url 'taskstatuslist' %}">Task status list</a></li>
-                    <li><a href="{% url 'taskslist' %}">My tasks</a></li>
+                    <li><a href="{% url 'useritems' %}"><span class="glyphicon glyphicon-th-list"></span> My items</a></li>
+                    <li><a href="{% url 'taskstatuslist' %}"><span class="glyphicon glyphicon-th-list"></span> Task status list</a></li>
+                    <li><a href="{% url 'taskslist' %}"><span class="glyphicon glyphicon-list-alt"></span> My tasks</a></li>
                     <li><a href="{% url 'taskcreate' %}"><span class="glyphicon glyphicon-plus"></span> Create task</a></li>
                 {% endif %}
                 </ul>
