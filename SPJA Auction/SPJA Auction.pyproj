@@ -84,7 +84,6 @@
     <Content Include="AuctionApp\templates\register.html" />
     <Content Include="AuctionApp\templates\taskstatus\create.html" />
     <Content Include="AuctionApp\templates\taskstatus\list.html" />
-    <Content Include="AuctionApp\templates\task\create.html" />
     <Content Include="AuctionApp\templates\task\list.html" />
     <Content Include="AuctionApp\templates\user\userinfo.html" />
     <Content Include="AuctionApp\templates\user\userinfoedit.html" />
