@@ -27,3 +27,9 @@ class Task(models.Model):
 
     def __str__(self):
         return self.text[:30]
+
+class Messages(models.Model):
+    user_from = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_to = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    date = models.DateTimeField(auto_now = True)
