@@ -61,6 +61,7 @@
     <Content Include="AuctionApp\static\scripts\bootstrap.min.js" />
     <None Include="AuctionApp\static\scripts\jquery.validate-vsdoc.js" />
     <None Include="AuctionApp\static\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="AuctionApp\static\scripts\DjangoFixIncludeWhiteSpaces.js" />
     <Content Include="AuctionApp\static\scripts\jquery-1.10.2.js" />
     <Content Include="AuctionApp\static\scripts\jquery-1.10.2.min.js" />
     <Content Include="AuctionApp\static\scripts\jquery-1.10.2.min.map" />
