@@ -5,6 +5,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm
 from AuctionApp.models import Item, TaskStatus, Task
+from AuctionApp.utils import errorCheck
 
 def home(request):
     """Renders the home page."""
@@ -107,12 +108,7 @@ def userinfoedit(request, username):
     if successSave:
         dic['successAlerts'] = ('Edit was successful!',)
     elif form.errors:
-        # TODO: join colleciton of collection in errors to pass only plain strings to global alert handling
-        dangers = list()
-        for field in form:
-            for error in field.errors:
-                dangers.append(error)
-        dic['dangerAlerts'] = dangers
+        dic['dangerAlerts'] = errorCheck(form)
 
     return render(request,
             'user/userinfoedit.html',
@@ -135,14 +131,19 @@ def createitem(request):
     else:
         form = CreateItemForm()
 
+    dic = {
+            'title': 'Edit info',
+            'form': form,
+        }
+
+    if successCreate:
+        dic['successAlerts'] = ('Item was created!',)
+    elif form.errors:
+        dic['dangerAlerts'] = errorCheck(form)
+
     return render(request,
             'createitem.html',
-            context_instance = RequestContext(request,
-        {
-            'title': 'Create item',
-            'form': form,
-            'successCreate': successCreate
-        }))
+            context_instance = RequestContext(request, dic))
 
 def edititem(request,id):
     """Renders edit item page."""
@@ -161,14 +162,19 @@ def edititem(request,id):
     else:
         form = CreateItemForm(instance=Item.objects.get(id = id))
 
+    dic = {
+            'title': 'Edit item',
+            'form': form,
+        }
+
+    if successEdit:
+        dic['successAlerts'] = ('Edit was successful!',)
+    elif form.errors:
+        dic['dangerAlerts'] = errorCheck(form)
+
     return render(request,
             'edititem.html',
-            context_instance = RequestContext(request,
-        {
-            'title': 'Create item',
-            'form': form,
-            'successEdit': successEdit
-        }))
+            context_instance = RequestContext(request, dic))
 
 def deleteitem(request,id):
     """Renders edit item page."""
