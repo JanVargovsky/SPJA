@@ -1,7 +1,5 @@
 ﻿{% if successAlerts %}
     {% for alert in successAlerts %}
-        <div class="alert alert-success">
-            {{ alert|escape }}
-        </div>
+        <div class="alert alert-success" role="alert">{{ alert|escape }}</div>
     {% endfor %}
 {% endif %}

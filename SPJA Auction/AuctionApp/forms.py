@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from AuctionApp.models import Item
+from AuctionApp.models import Item, TaskStatus
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -108,3 +108,12 @@ class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['name', 'price',]
+
+class CreateTaskStatusForm(forms.ModelForm):
+    name = forms.CharField(max_length=50, required=True, 
+                            widget=forms.TextInput({
+                                'class': 'form-control',
+                                'placeholder':'Status name'}))
+    class Meta:
+        model = TaskStatus
+        fields = ['name',]

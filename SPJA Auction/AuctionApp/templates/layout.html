@@ -22,11 +22,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'home' %}">Home</a></li>
 {% if user.is_authenticated %}
                     <li><a href="{% url 'users' %}">Users</a></li>
                     <li><a href="{% url 'createitem' %}">Create item</a></li>
                     <li><a href="{% url 'useritems' %}">My items</a></li>
+                    <li><a href="{% url 'taskstatuslist' %}">Task status list</a></li>
+                    <li><a href="{% url 'taskslist' %}">My tasks</a></li>
 {% endif %}
                 </ul>
 {% if user.is_authenticated %}
@@ -49,11 +50,23 @@
     </div>
 
     <main class="container body-content">
-{% include 'alerts/success.html' %}
-{% include 'alerts/info.html' %}
-{% include 'alerts/warning.html' %}
-{% include 'alerts/danger.html' %}
-{% block content %}{% endblock %}
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <div id="alerts">
+                    {% spaceless %}
+                    {% include 'alerts/success.html' %}
+                    {% include 'alerts/info.html' %}
+                    {% include 'alerts/warning.html' %}
+                    {% include 'alerts/danger.html' %}
+                    {% endspaceless %}
+                </div>
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <img src="../static/images/django.png" class="img-responsive" alt="Django" />
+            </div>
+        </div>
+
         <hr/>
         <footer class="text-center">
             <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda <small><a href="/admin">admin</a></small></p>

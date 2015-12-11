@@ -24,6 +24,12 @@ urlpatterns = patterns('',
      url(r'^userinfoedit/(?P<username>\w+)/$', views.userinfoedit, name='userinfoedit'),
      url(r'^edititem/(?P<id>\w+)/$', views.edititem, name='edititem'),
      url(r'^deleteitem/(?P<id>\w+)/$', views.deleteitem, name='deleteitem'),
+
+     url(r'^taskstatus/create/$', views.taskstatuscreate, name='taskstatuscreate'),
+     url(r'^taskstatus/delete/(?P<id>\w+)/$', views.taskstatusdelete, name='taskstatusdelete'),
+     url(r'^taskstatus/list/$', views.taskstatuslist, name='taskstatuslist'),
+
+     url(r'^tasks/list/$', views.taskslist, name='taskslist'),
      
      # login
      url(r'^login/$',

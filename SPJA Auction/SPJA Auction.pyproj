@@ -56,6 +56,7 @@
     <Content Include="AuctionApp\static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="AuctionApp\static\fonts\glyphicons-halflings-regular.woff" />
     <None Include="AuctionApp\static\scripts\_references.js" />
+    <Content Include="AuctionApp\static\images\django.png" />
     <Content Include="AuctionApp\static\scripts\bootstrap.js" />
     <Content Include="AuctionApp\static\scripts\bootstrap.min.js" />
     <None Include="AuctionApp\static\scripts\jquery.validate-vsdoc.js" />
@@ -81,10 +82,15 @@
     <Content Include="AuctionApp\templates\layout.html" />
     <Content Include="AuctionApp\templates\login.html" />
     <Content Include="AuctionApp\templates\register.html" />
-    <Content Include="AuctionApp\templates\userinfo.html" />
-    <Content Include="AuctionApp\templates\userinfoedit.html" />
+    <Content Include="AuctionApp\templates\taskstatus\create.html" />
+    <Content Include="AuctionApp\templates\taskstatus\list.html" />
+    <Content Include="AuctionApp\templates\task\edit.html" />
+    <Content Include="AuctionApp\templates\task\create.html" />
+    <Content Include="AuctionApp\templates\task\list.html" />
+    <Content Include="AuctionApp\templates\user\userinfo.html" />
+    <Content Include="AuctionApp\templates\user\userinfoedit.html" />
     <Content Include="AuctionApp\templates\items.html" />
-    <Content Include="AuctionApp\templates\users.html" />
+    <Content Include="AuctionApp\templates\user\users.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +98,14 @@
     <Folder Include="AuctionApp\static\" />
     <Folder Include="AuctionApp\static\content\" />
     <Folder Include="AuctionApp\static\fonts\" />
+    <Folder Include="AuctionApp\static\images\" />
+    <Folder Include="images\" />
     <Folder Include="AuctionApp\static\scripts\" />
     <Folder Include="AuctionApp\templates\" />
     <Folder Include="AuctionApp\templates\alerts\" />
+    <Folder Include="AuctionApp\templates\task\" />
+    <Folder Include="AuctionApp\templates\taskstatus\" />
+    <Folder Include="AuctionApp\templates\user\" />
     <Folder Include="SPJA_Auction\" />
   </ItemGroup>
   <ItemGroup>

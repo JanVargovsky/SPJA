@@ -3,8 +3,8 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.models import User
-from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm
-from AuctionApp.models import Item
+from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm
+from AuctionApp.models import Item, TaskStatus, Task
 
 def home(request):
     """Renders the home page."""
@@ -34,7 +34,7 @@ def users(request):
     """Renders the login page."""
     assert isinstance(request, HttpRequest)
     return render(request,
-        'users.html',
+        'user/users.html',
         context_instance = RequestContext(request,
         {
             'title':'List of users',
@@ -55,7 +55,7 @@ def userinfo(request, username):
     """Renders the user info page."""
     assert isinstance(request, HttpRequest)
     return render(request,
-        'userinfo.html',
+        'user/userinfo.html',
         context_instance = RequestContext(request,
         {
             'title':'User info',
@@ -108,10 +108,14 @@ def userinfoedit(request, username):
         dic['successAlerts'] = ('Edit was successful!',)
     elif form.errors:
         # TODO: join colleciton of collection in errors to pass only plain strings to global alert handling
-        dic['dangerAlerts'] = form.errors
+        dangers = list()
+        for field in form:
+            for error in field.errors:
+                dangers.append(error)
+        dic['dangerAlerts'] = dangers
 
     return render(request,
-            'userinfoedit.html',
+            'user/userinfoedit.html',
             context_instance = RequestContext(request,dic))
 
 def createitem(request):
@@ -176,30 +180,57 @@ def deleteitem(request,id):
 
     return HttpResponseRedirect('/useritems/')
 
-#def contact(request):
-#    """Renders the contact page."""
-#    assert isinstance(request, HttpRequest)
-#    return render(
-#        request,
-#        'app/contact.html',
-#        context_instance = RequestContext(request,
-#        {
-#            'title':'Contact',
-#            'message':'Your contact page.',
-#            'year':datetime.now().year,
-#        })
-#    )
+def taskstatuscreate(request):
+    """Renders create form page for task status."""
+    assert isinstance(request, HttpRequest)
+    successCreate = False
+    invalidForm = False
+    if request.method == 'POST':
+        form = CreateTaskStatusForm(request.POST)
 
-#def about(request):
-#    """Renders the about page."""
-#    assert isinstance(request, HttpRequest)
-#    return render(
-#        request,
-#        'app/about.html',
-#        context_instance = RequestContext(request,
-#        {
-#            'title':'About',
-#            'message':'Your application description page.',
-#            'year':datetime.now().year,
-#        })
-#    )
+        if form.is_valid():
+            form.save()
+            form = CreateTaskStatusForm()
+            successCreate = True
+        else:
+            invalidForm = True
+    else:
+        form = CreateTaskStatusForm()
+
+    return render(request,
+            'taskstatus/create.html',
+            context_instance = RequestContext(request,
+        {
+            'title': 'Create new task status',
+            'form': form,
+            'successAlerts': ('Created!',) if successCreate else list(),
+            'dangerAlerts': ('Something went wrong!',) if invalidForm else list()
+        }))
+
+def taskstatuslist(request):
+    """Renders the task status list page."""
+    assert isinstance(request, HttpRequest)
+    return render(request,
+        'taskstatus/list.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Task status list',
+            'statuses': TaskStatus.objects,
+        }))
+
+def taskstatusdelete(request,id):
+    taskstatus = TaskStatus.objects.get(id = id)
+    if taskstatus:
+        taskstatus.delete()
+    return taskstatuslist(request)
+
+def taskslist(request):
+    """Renders the login page."""
+    assert isinstance(request, HttpRequest)
+    return render(request,
+        'task/list.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Tasks list',
+            'tasks': Task.objects,
+        }))
