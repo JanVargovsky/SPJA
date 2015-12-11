@@ -49,7 +49,10 @@
     </div>
 
     <main class="container body-content">
-{% block alert %}{% endblock %}
+{% include 'alerts/success.html' %}
+{% include 'alerts/info.html' %}
+{% include 'alerts/warning.html' %}
+{% include 'alerts/danger.html' %}
 {% block content %}{% endblock %}
         <hr/>
         <footer class="text-center">

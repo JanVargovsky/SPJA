@@ -70,6 +70,10 @@
     <Content Include="AuctionApp\static\scripts\modernizr-2.6.2.js" />
     <Content Include="AuctionApp\static\scripts\respond.js" />
     <Content Include="AuctionApp\static\scripts\respond.min.js" />
+    <Content Include="AuctionApp\templates\alerts\danger.html" />
+    <Content Include="AuctionApp\templates\alerts\info.html" />
+    <Content Include="AuctionApp\templates\alerts\success.html" />
+    <Content Include="AuctionApp\templates\alerts\warning.html" />
     <Content Include="AuctionApp\templates\createitem.html" />
     <Content Include="AuctionApp\templates\edititem.html" />
     <Content Include="AuctionApp\templates\error.html" />
@@ -90,6 +94,7 @@
     <Folder Include="AuctionApp\static\fonts\" />
     <Folder Include="AuctionApp\static\scripts\" />
     <Folder Include="AuctionApp\templates\" />
+    <Folder Include="AuctionApp\templates\alerts\" />
     <Folder Include="SPJA_Auction\" />
   </ItemGroup>
   <ItemGroup>

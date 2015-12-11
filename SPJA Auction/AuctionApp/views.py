@@ -13,7 +13,11 @@ def home(request):
         'index.html',
         context_instance = RequestContext(request,
         {
-            'title':'Home'
+            'title':'Home',
+            'dangerAlerts': ('some example danger',),
+            'infoAlerts': ('some example info',),
+            'successAlerts': ('some example success',),
+            'warningAlerts': ('some example warning',),
         }))
 
 def login(request):

@@ -1,0 +1,7 @@
+﻿{% if successAlerts %}
+    {% for alert in successAlerts %}
+        <div class="alert alert-success">
+            {{ alert|escape }}
+        </div>
+    {% endfor %}
+{% endif %}

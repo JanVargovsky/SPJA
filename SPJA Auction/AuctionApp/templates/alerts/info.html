@@ -1,0 +1,7 @@
+﻿{% if infoAlerts %}
+    {% for alert in infoAlerts %}
+        <div class="alert alert-info">
+            {{ alert|escape }}
+        </div>
+    {% endfor %}
+{% endif %}
