@@ -84,34 +84,35 @@ def useritems(request):
             'items': Item.objects,
         }))
 
-########################################################
-# FORM HANDLERS
-########################################################
-
 def userinfoedit(request, username):
     # TODO: redirect if its not current logged user
     assert isinstance(request, HttpRequest)
 
-    # if this is a POST request we need to process the form data
     successSave = False
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+
         form = CustomUserInfoEditForm(request.POST, instance=request.user)
-        # check whether it's valid:
+
         if form.is_valid():
             form.save()
             successSave = True
     else:
         form = CustomUserInfoEditForm(instance=User.objects.get_by_natural_key(username))
 
-    return render(request,
-            'userinfoedit.html',
-            context_instance = RequestContext(request,
-        {
+    dic = {
             'title': 'Edit info',
             'form': form,
-            'successSave': successSave
-        }))
+        }
+
+    if successSave:
+        dic['successAlerts'] = ('Edit was successful!',)
+    elif form.errors:
+        # TODO: join colleciton of collection in errors to pass only plain strings to global alert handling
+        dic['dangerAlerts'] = form.errors
+
+    return render(request,
+            'userinfoedit.html',
+            context_instance = RequestContext(request,dic))
 
 def createitem(request):
     """Renders create item page."""
