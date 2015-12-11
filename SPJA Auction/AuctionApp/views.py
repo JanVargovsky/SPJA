@@ -5,7 +5,15 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm
 from AuctionApp.models import Item, TaskStatus, Task
-from AuctionApp.utils import errorCheck
+
+def getFieldErrors(form):
+    errors = list()
+
+    for field in form:
+        for error in field.errors:
+            errors.append(error)
+
+    return errors
 
 def home(request):
     """Renders the home page."""
@@ -108,7 +116,7 @@ def userinfoedit(request, username):
     if successSave:
         dic['successAlerts'] = ('Edit was successful!',)
     elif form.errors:
-        dic['dangerAlerts'] = errorCheck(form)
+        dic['dangerAlerts'] = getFieldErrors(form)
 
     return render(request,
             'user/userinfoedit.html',
@@ -139,7 +147,7 @@ def createitem(request):
     if successCreate:
         dic['successAlerts'] = ('Item was created!',)
     elif form.errors:
-        dic['dangerAlerts'] = errorCheck(form)
+        dic['dangerAlerts'] = getFieldErrors(form)
 
     return render(request,
             'createitem.html',
@@ -170,7 +178,7 @@ def edititem(request,id):
     if successEdit:
         dic['successAlerts'] = ('Edit was successful!',)
     elif form.errors:
-        dic['dangerAlerts'] = errorCheck(form)
+        dic['dangerAlerts'] = getFieldErrors(form)
 
     return render(request,
             'edititem.html',

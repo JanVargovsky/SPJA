@@ -5,27 +5,6 @@
 <div class="row">
     <div class="col-md-8">
         <section id="editItemForm">
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="alert alert-danger">
-                    {{ error|escape }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-
-        {% for error in form.non_field_errors %}
-            <div class="alert alert-danger">
-                {{ error|escape }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
-    {% if successEdit %}
-            <div class="alert alert-success">
-                Item was successfuly edited!
-            </div>
-    {% endif %}
             <h2>{{ title }}</h2>
             <form action="." method="post" class="form-horizontal">
                 {% csrf_token %}
