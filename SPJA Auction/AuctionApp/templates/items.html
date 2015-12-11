@@ -18,13 +18,13 @@
             <th>Delete</th>
         </tr>
     </thead>
-    {% for i in items.all %}
+    {% for i in items %}
     <tr>
         <td>{{forloop.counter}}</td>
         <td>{{i.name}}</td>
         <td>{{i.price}}</td>
-        <td><a href="{% url 'edititem' i.id %}">Edit</a></td>
-        <td><a href="{% url 'deleteitem' i.id %}">Delete</a></td>
+        <td><a href="{% url 'edititem' i.id %}" class="btn btn-danger btn-xs">Edit</a></td>
+        <td><a href="{% url 'deleteitem' i.id %}" class="btn btn-danger btn-xs">Delete</a></td>
     </tr>
     {% endfor %}
 </table>

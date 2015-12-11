@@ -24,10 +24,11 @@
                 <ul class="nav navbar-nav">
 {% if user.is_authenticated %}
                     <li><a href="{% url 'users' %}">Users</a></li>
-                    <li><a href="{% url 'createitem' %}">Create item</a></li>
+                    <li><a href="{% url 'createitem' %}"><span class="glyphicon glyphicon-plus"></span> Create item</a></li>
                     <li><a href="{% url 'useritems' %}">My items</a></li>
                     <li><a href="{% url 'taskstatuslist' %}">Task status list</a></li>
                     <li><a href="{% url 'taskslist' %}">My tasks</a></li>
+                    <li><a href="{% url 'taskcreate' %}"><span class="glyphicon glyphicon-plus"></span> Create task</a></li>
 {% endif %}
                 </ul>
 {% if user.is_authenticated %}
@@ -63,7 +64,7 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4 col-sm-12">
-                <img src="../static/images/django.png" class="img-responsive" alt="Django" />
+                <img src="/static/images/django.png" class="img-responsive" alt="Django" />
             </div>
         </div>
 

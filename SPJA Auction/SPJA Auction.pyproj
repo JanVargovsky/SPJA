@@ -84,7 +84,6 @@
     <Content Include="AuctionApp\templates\register.html" />
     <Content Include="AuctionApp\templates\taskstatus\create.html" />
     <Content Include="AuctionApp\templates\taskstatus\list.html" />
-    <Content Include="AuctionApp\templates\task\edit.html" />
     <Content Include="AuctionApp\templates\task\create.html" />
     <Content Include="AuctionApp\templates\task\list.html" />
     <Content Include="AuctionApp\templates\user\userinfo.html" />
@@ -99,7 +98,6 @@
     <Folder Include="AuctionApp\static\content\" />
     <Folder Include="AuctionApp\static\fonts\" />
     <Folder Include="AuctionApp\static\images\" />
-    <Folder Include="images\" />
     <Folder Include="AuctionApp\static\scripts\" />
     <Folder Include="AuctionApp\templates\" />
     <Folder Include="AuctionApp\templates\alerts\" />

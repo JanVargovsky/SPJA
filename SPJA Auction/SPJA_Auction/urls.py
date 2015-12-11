@@ -22,14 +22,16 @@ urlpatterns = patterns('',
      url(r'^userinfo/(?P<username>\w+)$', views.userinfo, name='userinfo'),
 
      url(r'^userinfoedit/(?P<username>\w+)/$', views.userinfoedit, name='userinfoedit'),
-     url(r'^edititem/(?P<id>\w+)/$', views.edititem, name='edititem'),
-     url(r'^deleteitem/(?P<id>\w+)/$', views.deleteitem, name='deleteitem'),
+     url(r'^edititem/(?P<id>\d+)/$', views.edititem, name='edititem'),
+     url(r'^deleteitem/(?P<id>\d+)/$', views.deleteitem, name='deleteitem'),
 
      url(r'^taskstatus/create/$', views.taskstatuscreate, name='taskstatuscreate'),
-     url(r'^taskstatus/delete/(?P<id>\w+)/$', views.taskstatusdelete, name='taskstatusdelete'),
+     url(r'^taskstatus/delete/(?P<id>\d+)/$', views.taskstatusdelete, name='taskstatusdelete'),
      url(r'^taskstatus/list/$', views.taskstatuslist, name='taskstatuslist'),
 
      url(r'^tasks/list/$', views.taskslist, name='taskslist'),
+     url(r'^tasks/create/$', views.taskcreate, name='taskcreate'),
+     url(r'^tasks/delete/(?P<id>\d+)/$', views.taskdelete, name='taskdelete'),
      
      # login
      url(r'^login/$',

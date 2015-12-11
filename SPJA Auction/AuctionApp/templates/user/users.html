@@ -23,9 +23,9 @@
         <td>{{forloop.counter}}</td>
         <td>{{u.username}}</td>
         <td>{{u.email}}</td>
-        <td><a href="{% url 'userinfo' u.username %}" class="btn btn-default">Show profile</a></td>
+        <td><a href="{% url 'userinfo' u.username %}" class="btn btn-info btn-xs">Show profile</a></td>
         {% if user.username != u.username %}
-        <td><a href="" class="btn btn-default">Message me!</a></td>
+        <td><a href="" class="btn btn-info btn-xs">Message me!</a></td>
         {% else %}
         <td></td>
         {% endif %}

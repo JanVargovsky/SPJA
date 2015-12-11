@@ -3,17 +3,16 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.models import User
-from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm
+from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm, CreateTaskForm
 from AuctionApp.models import Item, TaskStatus, Task
 
 def getFieldErrors(form):
     errors = list()
-
     for field in form:
         for error in field.errors:
             errors.append(error)
-
     return errors
+    return [error for field in form for error in field.errors]
 
 def home(request):
     """Renders the home page."""
@@ -90,7 +89,7 @@ def useritems(request):
         context_instance = RequestContext(request,
         {
             'title':'My items',
-            'items': Item.objects,
+            'items': Item.objects.all().filter(user = request.user),
         }))
 
 def userinfoedit(request, username):
@@ -131,7 +130,7 @@ def createitem(request):
         form = CreateItemForm(request.POST)
 
         if form.is_valid():
-            data = form.cleaned_data;
+            data = form.cleaned_data
             item = Item(user = request.user, name = data['name'], price = data['price'])
             item.save()
             item = CreateItemForm()
@@ -162,7 +161,7 @@ def edititem(request,id):
         form = CreateItemForm(request.POST)
 
         if form.is_valid():
-            data = form.cleaned_data;
+            data = form.cleaned_data
             item = Item(user = request.user, id = id, name = data['name'], price = data['price'])
             item.save()
             successEdit = True
@@ -229,7 +228,7 @@ def taskstatuslist(request):
         context_instance = RequestContext(request,
         {
             'title':'Task status list',
-            'statuses': TaskStatus.objects,
+            'statuses': TaskStatus.objects.all().filter(user = request.user)
         }))
 
 def taskstatusdelete(request,id):
@@ -246,5 +245,44 @@ def taskslist(request):
         context_instance = RequestContext(request,
         {
             'title':'Tasks list',
-            'tasks': Task.objects,
+            'tasks': Task.objects.all().filter(user = request.user)
         }))
+
+def taskcreate(request):
+    """Renders form to create new task."""
+    assert isinstance(request, HttpRequest)
+
+    successCreate = False
+    if request.method == 'POST':
+        form = CreateTaskForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            task = Task(user = request.user, text = data['text'], status = data['status'])
+            task.save()
+            form = CreateTaskForm()
+            successCreate = True
+        else:
+            invalidForm = True
+    else:
+        form = CreateTaskForm()
+
+    dic = {
+            'title': 'Create new task',
+            'form': form,
+        }
+
+    if successCreate:
+        dic['successAlerts'] = ('Created!',)
+    elif form.errors:
+        dic['dangerAlerts'] = getFieldErrors(form)
+
+    return render(request,
+            'task/create.html',
+            context_instance = RequestContext(request, dic))
+
+def taskdelete(request,id):
+    task = Task.objects.get(id = id)
+    if task:
+        task.delete()
+    return taskslist(request)
