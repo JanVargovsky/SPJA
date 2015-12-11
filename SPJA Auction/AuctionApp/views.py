@@ -228,7 +228,7 @@ def taskstatuslist(request):
         context_instance = RequestContext(request,
         {
             'title':'Task status list',
-            'statuses': TaskStatus.objects.all().filter(user = request.user)
+            'statuses': TaskStatus.objects.all(),
         }))
 
 def taskstatusdelete(request,id):
