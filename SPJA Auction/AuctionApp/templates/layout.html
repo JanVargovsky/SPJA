@@ -7,7 +7,6 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'content/site.css' %}" />
-    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 
 <body>
@@ -26,6 +25,8 @@
                     <li><a href="{% url 'home' %}">Home</a></li>
 {% if user.is_authenticated %}
                     <li><a href="{% url 'users' %}">Users</a></li>
+                    <li><a href="{% url 'createitem' %}">Create item</a></li>
+                    <li><a href="{% url 'useritems' %}">My items</a></li>
 {% endif %}
                 </ul>
 {% if user.is_authenticated %}
@@ -43,16 +44,16 @@
                 {#<li><a href="{% url 'register' %}">Register</a></li>#}
             </ul>
 {% endif %}
-
             </div>
         </div>
     </div>
 
     <main class="container body-content">
+{% block alert %}{% endblock %}
 {% block content %}{% endblock %}
         <hr/>
         <footer class="text-center">
-            <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda</p>
+            <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda <small><a href="/admin">admin</a></small></p>
         </footer>
     </main>
 </body>

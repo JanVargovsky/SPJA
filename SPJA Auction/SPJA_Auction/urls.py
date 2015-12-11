@@ -2,6 +2,9 @@
 from datetime import datetime
 from AuctionApp.forms import BootstrapAuthenticationForm, BootstrapUserCreationForm
 import AuctionApp.views as views
+from django.contrib.auth.views import login
+from django.contrib.auth.views import logout
+#from django.conf.urls import url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -10,18 +13,21 @@ admin.autodiscover()
 urlpatterns = patterns('',
      # main menu
      url(r'^$', views.home, name='home'),
-     url(r'^users$', views.users, name='users'),
+     url(r'^users/$', views.users, name='users'),
+     url(r'^error/$', views.error, name='error'),
+     url(r'^useritems/$', views.useritems, name='useritems'),
+     url(r'^createitem/$', views.createitem, name='createitem'),
 
-     url(r'^userinfo/?(?P<username>\w+)?/?$', views.userinfo, name='userinfo'),  
-     url(r'^userinfo/$', views.userinfo, name='userinfo'),
+     url(r'^userinfo/?(?P<username>\w+)?/?$', views.userinfo, name='userinfo'),
+     url(r'^userinfo/(?P<username>\w+)$', views.userinfo, name='userinfo'),
+
+     url(r'^userinfoedit/(?P<username>\w+)/$', views.userinfoedit, name='userinfoedit'),
+     url(r'^edititem/(?P<id>\w+)/$', views.edititem, name='edititem'),
+     url(r'^deleteitem/(?P<id>\w+)/$', views.deleteitem, name='deleteitem'),
      
-     # TODO: Create register form...  do it as a last thing, because its
-     # complex as fuck
-     #url(r'^register', 'AuctionApp.views.register', name='register'),
-
      # login
      url(r'^login/$',
-        'django.contrib.auth.views.login',
+        login,
         {
             'template_name': 'login.html',
             'authentication_form': BootstrapAuthenticationForm,
@@ -32,13 +38,17 @@ urlpatterns = patterns('',
         },
         name='login'),
      #logout
-    url(r'^logout$',
-        'django.contrib.auth.views.logout',
+     url(r'^logout$',
+        logout,
         {
             'next_page': '/',
         },
         name='logout'),
+
+     # TODO: Create register form...  do it as a last thing, because its
+     # complex as fuck
      #register
+     #url(r'^register', 'AuctionApp.views.register', name='register'),
      #url(r'^register/$',
      #   'registration.forms.RegistrationForm',
      #   {
@@ -57,4 +67,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
 
      #url(r'^admin/', django.conf.urls.url()),
-     url(r'^admin/', include(admin.site.urls)),)
+     url(r'^admin/', include(admin.site.urls)),
+     )

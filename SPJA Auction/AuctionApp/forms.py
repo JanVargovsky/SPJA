@@ -1,7 +1,8 @@
-from django import forms
+﻿from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from AuctionApp.models import Item
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -14,6 +15,7 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
 
+# unused
 class BootstrapUserCreationForm(forms.ModelForm):
     username = forms.CharField(max_length=100,
                                widget=forms.TextInput({
@@ -28,15 +30,15 @@ class BootstrapUserCreationForm(forms.ModelForm):
                                    'class': 'form-control',
                                    'placeholder':'Password again'}))
     first_name = forms.CharField(max_length=100,
-                               widget=forms.PasswordInput({
+                               widget=forms.TextInput({
                                    'class': 'form-control',
                                    'placeholder':'First name'}))
     last_name = forms.CharField(max_length=100,
-                               widget=forms.PasswordInput({
+                               widget=forms.TextInput({
                                    'class': 'form-control',
                                    'placeholder':'Last name'}))
     email = forms.EmailField(max_length=100,
-                               widget=forms.PasswordInput({
+                               widget=forms.EmailInput({
                                    'class': 'form-control',
                                    'placeholder':'Email'}))
     class Meta:
@@ -58,3 +60,51 @@ class BootstrapUserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class CustomUserInfoEditForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, required=False,
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'User name',
+                                   'readonly':'readonly'}))
+    first_name = forms.CharField(max_length=100,
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'First name'}))
+    last_name = forms.CharField(max_length=100,
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Last name'}))
+    email = forms.EmailField(max_length=100,
+                               widget=forms.EmailInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Email'}))
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+class CreateItemForm(forms.ModelForm):
+    name = forms.CharField(max_length=50, required=True, 
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Name'}))
+    price = forms.FloatField(required=True,
+                             widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Price'}))
+    class Meta:
+        model = Item
+        fields = ['name', 'price',]
+
+class EditItemForm(forms.ModelForm):
+    name = forms.CharField(max_length=50, required=True, 
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Name'}))
+    price = forms.FloatField(required=True,
+                             widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Price'}))
+    class Meta:
+        model = Item
+        fields = ['name', 'price',]

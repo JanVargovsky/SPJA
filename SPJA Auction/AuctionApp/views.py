@@ -1,8 +1,10 @@
 ﻿from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.models import User
+from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm
+from AuctionApp.models import Item
 
 def home(request):
     """Renders the home page."""
@@ -53,9 +55,121 @@ def userinfo(request, username):
         context_instance = RequestContext(request,
         {
             'title':'User info',
-            'showEdit': username is None or (username is not None and  User.objects.get_by_natural_key(username) is request.user),
+            'showEdit': username is None or (username is not None and request.user is not None and username == request.user.username),
             'customuser': request.user if username is None else User.objects.get_by_natural_key(username),
         }))
+
+def error(request):
+    """Renders the error page."""
+    assert isinstance(request, HttpRequest)
+    return render(request,
+        'error.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Error'
+        }))
+
+def useritems(request):
+    """Renders items of logged user page."""
+    assert isinstance(request, HttpRequest)
+    return render(request,
+        'items.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'My items',
+            'items': Item.objects,
+        }))
+
+########################################################
+# FORM HANDLERS
+########################################################
+
+def userinfoedit(request, username):
+    # TODO: redirect if its not current logged user
+    assert isinstance(request, HttpRequest)
+
+    # if this is a POST request we need to process the form data
+    successSave = False
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CustomUserInfoEditForm(request.POST, instance=request.user)
+        # check whether it's valid:
+        if form.is_valid():
+            form.save()
+            successSave = True
+    else:
+        form = CustomUserInfoEditForm(instance=User.objects.get_by_natural_key(username))
+
+    return render(request,
+            'userinfoedit.html',
+            context_instance = RequestContext(request,
+        {
+            'title': 'Edit info',
+            'form': form,
+            'successSave': successSave
+        }))
+
+def createitem(request):
+    """Renders create item page."""
+    assert isinstance(request, HttpRequest)
+     # TODO: redirect if its not current logged user
+    successCreate = False
+    if request.method == 'POST':
+        form = CreateItemForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data;
+            item = Item(user = request.user, name = data['name'], price = data['price'])
+            item.save()
+            item = CreateItemForm()
+            successCreate = True
+    else:
+        form = CreateItemForm()
+
+    return render(request,
+            'createitem.html',
+            context_instance = RequestContext(request,
+        {
+            'title': 'Create item',
+            'form': form,
+            'successCreate': successCreate
+        }))
+
+def edititem(request,id):
+    """Renders edit item page."""
+    assert isinstance(request, HttpRequest)
+     # TODO: redirect if its not current logged user
+    successEdit = False
+    if request.method == 'POST':
+        form = CreateItemForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data;
+            item = Item(user = request.user, id = id, name = data['name'], price = data['price'])
+            item.save()
+            successEdit = True
+            #todo redirect to list
+    else:
+        form = CreateItemForm(instance=Item.objects.get(id = id))
+
+    return render(request,
+            'edititem.html',
+            context_instance = RequestContext(request,
+        {
+            'title': 'Create item',
+            'form': form,
+            'successEdit': successEdit
+        }))
+
+def deleteitem(request,id):
+    """Renders edit item page."""
+    assert isinstance(request, HttpRequest)
+     # TODO: redirect if its not current logged user
+    item = Item.objects.get(id = id)
+    if item:
+        item.delete()
+
+    return HttpResponseRedirect('/useritems/')
 
 #def contact(request):
 #    """Renders the contact page."""

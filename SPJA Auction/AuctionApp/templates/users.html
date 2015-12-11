@@ -23,14 +23,9 @@
         <td>{{forloop.counter}}</td>
         <td>{{u.username}}</td>
         <td>{{u.email}}</td>
-
-        {% comment %}
-        TODO: add url to user
-        {% endcomment%}
-
-        <td><button class="btn btn-default">Show profile</button></td>
+        <td><a href="{% url 'userinfo' u.username %}" class="btn btn-default">Show profile</a></td>
         {% if user.username != u.username %}
-        <td><button class="btn btn-default">Message me!</button></td>
+        <td><a href="" class="btn btn-default">Message me!</a></td>
         {% else %}
         <td></td>
         {% endif %}

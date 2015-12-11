@@ -32,6 +32,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AuctionApp\admin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AuctionApp\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -67,13 +70,17 @@
     <Content Include="AuctionApp\static\scripts\modernizr-2.6.2.js" />
     <Content Include="AuctionApp\static\scripts\respond.js" />
     <Content Include="AuctionApp\static\scripts\respond.min.js" />
+    <Content Include="AuctionApp\templates\createitem.html" />
+    <Content Include="AuctionApp\templates\edititem.html" />
+    <Content Include="AuctionApp\templates\error.html" />
     <Content Include="AuctionApp\templates\index.html" />
     <Content Include="AuctionApp\templates\layout.html" />
     <Content Include="AuctionApp\templates\login.html" />
     <Content Include="AuctionApp\templates\register.html" />
     <Content Include="AuctionApp\templates\userinfo.html" />
+    <Content Include="AuctionApp\templates\userinfoedit.html" />
+    <Content Include="AuctionApp\templates\items.html" />
     <Content Include="AuctionApp\templates\users.html" />
-    <Content Include="db.sqlite3" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
