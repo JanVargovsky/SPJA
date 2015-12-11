@@ -3,8 +3,8 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.models import User
-from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm, CreateTaskForm
-from AuctionApp.models import Item, TaskStatus, Task
+from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm, CreateTaskForm, SendMessageForm
+from AuctionApp.models import Item, TaskStatus, Task, Message
 
 def getFieldErrors(form):
     errors = list()
@@ -286,3 +286,37 @@ def taskdelete(request,id):
     if task:
         task.delete()
     return taskslist(request)
+
+def messagesend(request, id):
+    """Renders form to send new message."""
+    assert isinstance(request, HttpRequest)
+
+    successSend = False
+    if request.method == 'POST':
+        form = SendMessageForm(request.POST)
+        # TODO paste assignee username into label
+
+        if form.is_valid():
+            data = form.cleaned_data
+            message = Message(creator = request.user, assignee = id, text = data['text'], date = datetime.now)
+            message.save()
+            form = SendMessageForm()
+            successSend = True
+        else:
+            invalidForm = True
+    else:
+        form = SendMessageForm()
+
+    dic = {
+            'title': 'Send new message',
+            'form': form,
+        }
+
+    if successSend:
+        dic['successAlerts'] = ('Sent!',)
+    elif form.errors:
+        dic['dangerAlerts'] = getFieldErrors(form)
+
+    return render(request,
+            'message/send.html',
+            context_instance = RequestContext(request, dic))

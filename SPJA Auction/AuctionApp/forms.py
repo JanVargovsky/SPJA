@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from AuctionApp.models import Item, TaskStatus, Task
+from AuctionApp.models import Item, TaskStatus, Task, Message
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -120,10 +120,10 @@ class CreateTaskStatusForm(forms.ModelForm):
 
 class CreateTaskForm(forms.ModelForm):
     text = forms.CharField(max_length=500, required=True, 
-                        widget=forms.Textarea({
-                            'class': 'form-control',
-                            'placeholder':'Text',
-                            'rows':'3'}))
+                            widget=forms.Textarea({
+                                'class': 'form-control',
+                                'placeholder':'Text',
+                                'rows':'3'}))
     status = forms.ModelChoiceField(queryset=TaskStatus.objects.all(), empty_label='Select status', initial=0,
                         widget=forms.Select({
                             'class': 'form-control',}))
@@ -131,3 +131,18 @@ class CreateTaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['text', 'status']
+
+class SendMessageForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, required=False,
+                            widget=forms.TextInput({
+                                'class': 'form-control',
+                                'placeholder':'User name',
+                                'readonly':'readonly'}))
+    text = forms.CharField(required=True,
+                        widget=forms.Textarea({
+                            'class': 'form-control',
+                            'placeholder':'Message text',
+                            'rows':'10'}))
+    class Meta:
+        model = Message
+        fields = ['username', 'text']
