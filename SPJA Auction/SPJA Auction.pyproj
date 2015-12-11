@@ -39,6 +39,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AuctionApp\models.py" />
+    <Compile Include="AuctionApp\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AuctionApp\views.py" />
     <Compile Include="AuctionApp\__init__.py" />
     <Compile Include="manage.py" />
