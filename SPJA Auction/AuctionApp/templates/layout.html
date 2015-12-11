@@ -20,18 +20,18 @@
                 </button>
                 <a href="/" class="navbar-brand">Auction</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <nav class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-{% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                     <li><a href="{% url 'users' %}">Users</a></li>
                     <li><a href="{% url 'createitem' %}"><span class="glyphicon glyphicon-plus"></span> Create item</a></li>
                     <li><a href="{% url 'useritems' %}">My items</a></li>
                     <li><a href="{% url 'taskstatuslist' %}">Task status list</a></li>
                     <li><a href="{% url 'taskslist' %}">My tasks</a></li>
                     <li><a href="{% url 'taskcreate' %}"><span class="glyphicon glyphicon-plus"></span> Create task</a></li>
-{% endif %}
+                {% endif %}
                 </ul>
-{% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                 <form id="logoutForm" action="/logout" method="post" class="navbar-right">
                     {% csrf_token %}
                     <ul class="nav navbar-nav navbar-right">
@@ -40,13 +40,12 @@
                     </ul>
 
                 </form>
-{% else %}
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'login' %}">Log in</a></li>
-                {#<li><a href="{% url 'register' %}">Register</a></li>#}
-            </ul>
-{% endif %}
-            </div>
+                {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                </ul>
+                {% endif %}
+            </nav>
         </div>
     </div>
 
@@ -73,5 +72,8 @@
             <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda <small><a href="/admin">admin</a></small></p>
         </footer>
     </main>
+    <script src="{% static 'scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'scripts/respond.js' %}"></script>
 </body>
 </html>
