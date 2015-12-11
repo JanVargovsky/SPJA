@@ -18,18 +18,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Auction</a>
+                <a href="/" class="navbar-brand">Task Manager</a>
             </div>
             <nav class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                {% if user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <li><a href="{% url 'users' %}"><span class="glyphicon glyphicon-user"></span> Users</a></li>
                     <li><a href="{% url 'createitem' %}"><span class="glyphicon glyphicon-plus"></span> Create item</a></li>
                     <li><a href="{% url 'useritems' %}"><span class="glyphicon glyphicon-th-list"></span> My items</a></li>
                     <li><a href="{% url 'taskstatuslist' %}"><span class="glyphicon glyphicon-th-list"></span> Task status list</a></li>
                     <li><a href="{% url 'taskslist' %}"><span class="glyphicon glyphicon-list-alt"></span> My tasks</a></li>
                     <li><a href="{% url 'taskcreate' %}"><span class="glyphicon glyphicon-plus"></span> Create task</a></li>
-                {% endif %}
+                    {% endif %}
                 </ul>
                 {% if user.is_authenticated %}
                 <form id="logoutForm" action="/logout" method="post" class="navbar-right">
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <hr/>
+        <hr />
         <footer class="text-center">
             <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda <small><a href="/admin">admin</a></small></p>
         </footer>
@@ -75,5 +75,6 @@
     <script src="{% static 'scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'scripts/bootstrap.js' %}"></script>
     <script src="{% static 'scripts/respond.js' %}"></script>
+    <script src="{% static 'scripts/DjangoFixIncludeWhiteSpaces.js' %}"></script>
 </body>
 </html>

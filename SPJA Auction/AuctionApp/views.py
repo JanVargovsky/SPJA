@@ -139,7 +139,7 @@ def createitem(request):
         form = CreateItemForm()
 
     dic = {
-            'title': 'Edit info',
+            'title': 'Create item',
             'form': form,
         }
 
