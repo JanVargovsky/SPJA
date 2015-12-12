@@ -138,6 +138,9 @@ class SendMessageForm(forms.ModelForm):
                                 'class': 'form-control',
                                 'placeholder':'User name',
                                 'readonly':'readonly'}))
+    #username = forms.ModelChoiceField(queryset=User.objects.all(), empty_label='User name', initial=0,
+     #                   widget=forms.Select({
+      #                      'class': 'form-control',}))
     text = forms.CharField(required=True,
                         widget=forms.Textarea({
                             'class': 'form-control',

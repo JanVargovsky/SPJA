@@ -287,7 +287,7 @@ def taskdelete(request,id):
         task.delete()
     return taskslist(request)
 
-def messagesend(request, id):
+def messagesend(request, username):
     """Renders form to send new message."""
     assert isinstance(request, HttpRequest)
 
@@ -298,14 +298,16 @@ def messagesend(request, id):
 
         if form.is_valid():
             data = form.cleaned_data
-            message = Message(creator = request.user, assignee = id, text = data['text'], date = datetime.now)
+            message = Message(user_from = request.user,
+                              user_to = User.objects.get_by_natural_key(username),
+                              text = data['text'])
             message.save()
-            form = SendMessageForm()
+            form = SendMessageForm(initial={'username': User.objects.get_by_natural_key(username).username})
             successSend = True
         else:
             invalidForm = True
     else:
-        form = SendMessageForm()
+        form = SendMessageForm(initial={'username': User.objects.get_by_natural_key(username).username})
 
     dic = {
             'title': 'Send new message',

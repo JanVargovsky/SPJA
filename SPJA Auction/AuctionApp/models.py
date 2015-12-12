@@ -29,7 +29,7 @@ class Task(models.Model):
         return self.text[:30]
 
 class Message(models.Model):
-    creator = models.ForeignKey(User, related_name='creator', on_delete=models.CASCADE)
-    assignee = models.ForeignKey(User, related_name='assignee', on_delete=models.CASCADE)
+    user_from = models.ForeignKey(User, related_name='sender', on_delete=models.CASCADE)
+    user_to = models.ForeignKey(User, related_name='receiver', on_delete=models.CASCADE)
     text = models.TextField()
     date = models.DateTimeField(default = datetime.now())
