@@ -24,8 +24,8 @@
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'users' %}"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+                    <li><a href="{% url 'useritems' %}"><span class="glyphicon glyphicon-tag"></span> My items</a></li>
                     <li><a href="{% url 'createitem' %}"><span class="glyphicon glyphicon-plus"></span> Create item</a></li>
-                    <li><a href="{% url 'useritems' %}"><span class="glyphicon glyphicon-th-list"></span> My items</a></li>
                     <li><a href="{% url 'taskstatuslist' %}"><span class="glyphicon glyphicon-th-list"></span> Task status list</a></li>
                     <li><a href="{% url 'taskslist' %}"><span class="glyphicon glyphicon-list-alt"></span> My tasks</a></li>
                     <li><a href="{% url 'taskcreate' %}"><span class="glyphicon glyphicon-plus"></span> Create task</a></li>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <main class="container body-content">
+    <div class="container body-content">
         <div class="row">
             <div class="col-md-8 col-sm-12">
                 <div id="alerts">
@@ -60,7 +60,9 @@
                     {% include 'alerts/danger.html' %}
                     {% endspaceless %}
                 </div>
+                <main>
                 {% block content %}{% endblock %}
+                </main>
             </div>
             <div class="col-md-4 col-sm-12">
                 <img src="/static/images/django.png" class="img-responsive" alt="Django" />
@@ -71,7 +73,7 @@
         <footer class="text-center">
             <p>&copy; 2015 - Created by Jan Vargovský and Jakub Klimunda <small><a href="/admin">admin</a></small></p>
         </footer>
-    </main>
+    </div>
     <script src="{% static 'scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'scripts/bootstrap.js' %}"></script>
     <script src="{% static 'scripts/respond.js' %}"></script>

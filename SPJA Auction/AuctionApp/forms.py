@@ -132,6 +132,21 @@ class CreateTaskForm(forms.ModelForm):
         model = Task
         fields = ['text', 'status']
 
+class EditTaskForm(forms.ModelForm):
+    text = forms.CharField(max_length=500, required=True, 
+                            widget=forms.Textarea({
+                                'class': 'form-control',
+                                'placeholder':'Text',
+                                'rows':'3'}))
+    status = forms.ModelChoiceField(queryset=TaskStatus.objects.all(), empty_label='Select status', initial=0,
+                        widget=forms.Select({
+                            'class': 'form-control',}))
+    deleted = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Task
+        fields = ['text', 'status', 'deleted']
+
 class SendMessageForm(forms.ModelForm):
     username = forms.CharField(max_length=100, required=False,
                             widget=forms.TextInput({

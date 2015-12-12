@@ -41,6 +41,10 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+main{
+    padding-top: 20px;
+}
+
 #alerts .alert{
      margin-bottom: 5px;
 }

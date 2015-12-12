@@ -29,8 +29,11 @@ urlpatterns = patterns('',
      url(r'^taskstatus/delete/(?P<id>\d+)/$', views.taskstatusdelete, name='taskstatusdelete'),
      url(r'^taskstatus/list/$', views.taskstatuslist, name='taskstatuslist'),
 
-     url(r'^tasks/list/$', views.taskslist, name='taskslist'),
+     url(r'^tasks/list/$', views.taskslist,{'filter': 'notdeleted'}, name='taskslist'),
+     url(r'^tasks/list/deleted$', views.taskslist,{'filter': 'deletedonly'}, name='deletedtaskslist'),
+     url(r'^tasks/list/all/$', views.taskslist,{'filter': 'all'}, name='alltaskslist'),
      url(r'^tasks/create/$', views.taskcreate, name='taskcreate'),
+     url(r'^tasks/edit/(?P<id>\d+)/$', views.taskedit, name='taskedit'),
      url(r'^tasks/delete/(?P<id>\d+)/$', views.taskdelete, name='taskdelete'),
 
      url(r'^message/send(?P<id>\d+)/$', views.messagesend, name='messagesend'),

@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.models import User
-from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm, CreateTaskForm, SendMessageForm
+from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm, CreateTaskForm, EditTaskForm, SendMessageForm
 from AuctionApp.models import Item, TaskStatus, Task, Message
 
 def getFieldErrors(form):
@@ -165,7 +165,6 @@ def edititem(request,id):
             item = Item(user = request.user, id = id, name = data['name'], price = data['price'])
             item.save()
             successEdit = True
-            #todo redirect to list
     else:
         form = CreateItemForm(instance=Item.objects.get(id = id))
 
@@ -221,7 +220,7 @@ def taskstatuscreate(request):
         }))
 
 def taskstatuslist(request):
-    """Renders the task status list page."""
+    """Renders task status list page."""
     assert isinstance(request, HttpRequest)
     return render(request,
         'taskstatus/list.html',
@@ -237,15 +236,26 @@ def taskstatusdelete(request,id):
         taskstatus.delete()
     return taskstatuslist(request)
 
-def taskslist(request):
-    """Renders the login page."""
+def taskslist(request, filter):
+    """Renders tasks list page."""
     assert isinstance(request, HttpRequest)
+
+    tasks = Task.objects.all().filter(user = request.user)
+    title = 'All tasks'
+    if filter is 'notdeleted':
+        tasks = tasks.filter(deleted = False)
+        title = 'Active tasks'
+    elif filter is 'deletedonly':
+        tasks = tasks.filter(deleted = True)
+        title = 'Deleted tasks'
+
     return render(request,
         'task/list.html',
         context_instance = RequestContext(request,
         {
-            'title':'Tasks list',
-            'tasks': Task.objects.all().filter(user = request.user)
+            'title': title,
+            'showDeleteButton': filter is not 'deletedonly',
+            'tasks': tasks
         }))
 
 def taskcreate(request):
@@ -281,11 +291,50 @@ def taskcreate(request):
             'task/create.html',
             context_instance = RequestContext(request, dic))
 
+def taskedit(request, id):
+    """Renders form to create new task."""
+    assert isinstance(request, HttpRequest)
+
+    successEdit = False
+    if request.method == 'POST':
+        form = EditTaskForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            task = Task.objects.get(id = id)
+            task.text = data['text']
+            task.status = data['status']
+            task.deleted = data['deleted']
+            task.save()
+            successEdit = True
+        else:
+            invalidForm = True
+    else:
+        form = EditTaskForm(instance=Task.objects.get(id = id))
+
+    dic = {
+            'title': 'Edit task',
+            'form': form,
+        }
+
+    if successEdit:
+        dic['successAlerts'] = ('Edited!',)
+    elif form.errors:
+        dic['dangerAlerts'] = getFieldErrors(form)
+
+    return render(request,
+            'task/edit.html',
+            context_instance = RequestContext(request, dic))
+
 def taskdelete(request,id):
+    """Deletes task by id."""
+    assert isinstance(request, HttpRequest)
+
     task = Task.objects.get(id = id)
     if task:
-        task.delete()
-    return taskslist(request)
+        task.deleted = True
+        task.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def messagesend(request, id):
     """Renders form to send new message."""
