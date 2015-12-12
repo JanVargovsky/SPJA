@@ -86,6 +86,7 @@
     <Content Include="AuctionApp\templates\register.html" />
     <Content Include="AuctionApp\templates\taskstatus\create.html" />
     <Content Include="AuctionApp\templates\taskstatus\list.html" />
+    <Content Include="AuctionApp\templates\task\edit.html" />
     <Content Include="AuctionApp\templates\task\create.html">
       <Publish>False</Publish>
     </Content>

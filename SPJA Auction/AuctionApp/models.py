@@ -26,7 +26,7 @@ class Task(models.Model):
     deleted = models.BooleanField(default = False)
 
     def __str__(self):
-        return self.text[:30]
+        return self.text[:30] if not self.deleted else "DELETED - {0}".format(self.text[:30])
 
 class Message(models.Model):
     user_from = models.ForeignKey(User, related_name='sender', on_delete=models.CASCADE)
