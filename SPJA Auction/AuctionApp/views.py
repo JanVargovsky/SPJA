@@ -343,7 +343,6 @@ def messagesend(request, username):
     successSend = False
     if request.method == 'POST':
         form = SendMessageForm(request.POST)
-        # TODO paste assignee username into label
 
         if form.is_valid():
             data = form.cleaned_data
@@ -371,3 +370,15 @@ def messagesend(request, username):
     return render(request,
             'message/send.html',
             context_instance = RequestContext(request, dic))
+
+def messagelist(request):
+    """Renders list of messages."""
+    assert isinstance(request, HttpRequest)
+
+    return render(request,
+        'message/list.html',
+        context_instance = RequestContext(request,
+        {
+            'title': 'Messages',
+            'messages': Message.objects.all().filter(user_from = request.user)
+        }))

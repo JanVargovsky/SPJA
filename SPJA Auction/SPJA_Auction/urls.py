@@ -37,6 +37,7 @@ urlpatterns = patterns('',
      url(r'^tasks/delete/(?P<id>\d+)/$', views.taskdelete, name='taskdelete'),
 
      url(r'^message/send/(?P<username>\w+)/$', views.messagesend, name='messagesend'),
+     url(r'^messages/$', views.messagelist, name='messagelist'),
      
      # login
      url(r'^login/$',

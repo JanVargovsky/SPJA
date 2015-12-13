@@ -39,6 +39,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AuctionApp\models.py" />
+    <Compile Include="AuctionApp\utils.py" />
     <Compile Include="AuctionApp\views.py" />
     <Compile Include="AuctionApp\__init__.py" />
     <Compile Include="manage.py" />
@@ -82,6 +83,7 @@
     <Content Include="AuctionApp\templates\index.html" />
     <Content Include="AuctionApp\templates\layout.html" />
     <Content Include="AuctionApp\templates\login.html" />
+    <Content Include="AuctionApp\templates\message\list.html" />
     <Content Include="AuctionApp\templates\message\send.html" />
     <Content Include="AuctionApp\templates\register.html" />
     <Content Include="AuctionApp\templates\taskstatus\create.html" />

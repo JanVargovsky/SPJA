@@ -29,6 +29,7 @@
                     <li><a href="{% url 'taskstatuslist' %}"><span class="glyphicon glyphicon-th-list"></span> Task status list</a></li>
                     <li><a href="{% url 'taskslist' %}"><span class="glyphicon glyphicon-list-alt"></span> My tasks</a></li>
                     <li><a href="{% url 'taskcreate' %}"><span class="glyphicon glyphicon-plus"></span> Create task</a></li>
+                    <li><a href="{% url 'messagelist' %}"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
                     {% endif %}
                 </ul>
                 {% if user.is_authenticated %}
