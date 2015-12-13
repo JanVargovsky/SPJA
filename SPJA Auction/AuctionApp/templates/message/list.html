@@ -1,42 +1,44 @@
 ﻿{% extends "layout.html" %}
 
 {% block content %}
+<section id="messages">
+    <h1>{{title}}</h1>
 
-<h1>{{title}}</h1>
-    <h3>Received Messages:</h3>
+    <section id="received">
+        <h3>Received Messages:</h3>
         {% for r in received %}
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h5> {{r.user_from}} </h5>
-                    <p> {{r.text}} </p>
-                </div>
-                <div class="panel-footer">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="pull-left">{{r.user_from}}</h4>
+                <div class="pull-right">
                     {{r.date}}
-                    <div class="pull-right">
-                        <a href="{% url 'messagedelete' r.id %}"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
-                    </div>
+                    <a href="{% url 'messagedelete' r.id %}"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
                 </div>
+                <div class="clearfix"></div>
             </div>
+            <div class="panel-body">
+                <p> {{r.text}} </p>
+            </div>
+        </div>
         {% endfor %}
-    <h3>Sent Messages:</h3>
+    </section>
+
+    <section id="sent">
+        <h3>Sent Messages:</h3>
         {% for s in sent %}
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h5> {{s.user_from}} </h5>
-                    <p> {{s.text}} </p>
-                </div>
-                <div class="panel-footer">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="pull-left">{{s.user_to}}</h4>
+                <div class="pull-right">
                     {{s.date}}
                 </div>
+                <div class="clearfix"></div>
             </div>
+            <div class="panel-body">
+                <p> {{s.text}} </p>
+            </div>
+        </div>
         {% endfor %}
-<style>
-h5 {
-    margin-top: 0;
-    margin-left: 0.3em;
-    font-weight: bold;
-    display: inline-block;
-}
-</style>
-
+    </section>
+</section>
 {% endblock %}

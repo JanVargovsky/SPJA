@@ -73,3 +73,8 @@ main{
         transform: rotate(359deg);
     }
 }
+
+#messages h4{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

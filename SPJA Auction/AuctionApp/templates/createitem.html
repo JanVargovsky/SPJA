@@ -1,34 +1,30 @@
 ﻿{% extends "layout.html" %}
 
 {% block content %}
-<div class="row">
-    <div class="col-sm-12">
-        <section id="createItemForm">
-            <h1>{{ title }}</h1>
-            <form action="." method="post" class="form-horizontal">
-                {% csrf_token %}
-                <h4>Fill item details</h4>
-                <hr />
-                <div class="form-group">
-                    <label for="id_username" class="col-md-2 control-label">Item name:</label>
-                    <div class="col-md-10">
-                        {{ form.name }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="id_password" class="col-md-2 control-label">Price:</label>
-                    <div class="col-md-10">
-                        {{ form.price }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                </div>
-            </form>
-        </section>
-    </div>
-</div>
+<section id="createItemForm">
+    <h1>{{ title }}</h1>
+    <form action="." method="post" class="form-horizontal">
+        {% csrf_token %}
+        <h4>Fill item details</h4>
+        <hr />
+        <div class="form-group">
+            <label for="id_username" class="col-md-2 control-label">Item name:</label>
+            <div class="col-md-10">
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password" class="col-md-2 control-label">Price:</label>
+            <div class="col-md-10">
+                {{ form.price }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</section>
 
 {% endblock %}
