@@ -12,7 +12,9 @@
                 </div>
                 <div class="panel-footer">
                     {{r.date}}
-                    <a href="{% url 'messagedelete' r.id %}"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
+                    <div class="pull-right">
+                        <a href="{% url 'messagedelete' r.id %}"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
