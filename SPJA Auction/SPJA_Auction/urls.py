@@ -37,6 +37,7 @@ urlpatterns = patterns('',
 
      url(r'^message/send/(?P<username>\w+)/$', views.messagesend, name='messagesend'),
      url(r'^messages/$', views.messagelist, name='messagelist'),
+     url(r'^message/delete/(?P<id>\d+)/$', views.messagedelete, name='messagedelete'),
      
      # login
      url(r'^login/$',

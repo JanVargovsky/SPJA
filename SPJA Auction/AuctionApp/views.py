@@ -365,10 +365,26 @@ def messagelist(request):
     """Renders list of messages."""
     assert isinstance(request, HttpRequest)
 
+    
+    sent = Message.objects.all().filter(user_from = request.user)
+    received = Message.objects.all().filter(user_to = request.user)
+
     return render(request,
         'message/list.html',
         context_instance = RequestContext(request,
         {
             'title': 'Messages',
-            'messages': Message.objects.all().filter(user_from = request.user)
+            'sent': sent,
+            'received': received
         }))
+
+def messagedelete(request, id):
+    """Deletes specific message"""
+    assert isinstance(request, HttpRequest)
+
+    message = Message.objects.get(id = id)
+    if message:
+        message.delete()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
