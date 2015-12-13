@@ -18,7 +18,7 @@
             <th>Message</th>
         </tr>
     </thead>
-    {% for u in users.all %}
+    {% for u in users %}
     <tr>
         <td>{{forloop.counter}}</td>
         <td>{{u.username}}</td>

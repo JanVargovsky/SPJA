@@ -5,14 +5,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from AuctionApp.forms import CustomUserInfoEditForm, CreateItemForm, CreateTaskStatusForm, CreateTaskForm, EditTaskForm, SendMessageForm
 from AuctionApp.models import Item, TaskStatus, Task, Message
-
-def getFieldErrors(form):
-    errors = list()
-    for field in form:
-        for error in field.errors:
-            errors.append(error)
-    return errors
-    return [error for field in form for error in field.errors]
+from AuctionApp.utils import getFieldErrors
 
 def home(request):
     """Renders the home page."""
@@ -46,7 +39,7 @@ def users(request):
         context_instance = RequestContext(request,
         {
             'title':'List of users',
-            'users': User.objects,
+            'users': User.objects.all(),
         }))
 
 def register(request):
@@ -133,7 +126,7 @@ def createitem(request):
             data = form.cleaned_data
             item = Item(user = request.user, name = data['name'], price = data['price'])
             item.save()
-            item = CreateItemForm()
+            form = CreateItemForm()
             successCreate = True
     else:
         form = CreateItemForm()
@@ -190,13 +183,12 @@ def deleteitem(request,id):
     if item:
         item.delete()
 
-    return HttpResponseRedirect('/useritems/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def taskstatuscreate(request):
     """Renders create form page for task status."""
     assert isinstance(request, HttpRequest)
     successCreate = False
-    invalidForm = False
     if request.method == 'POST':
         form = CreateTaskStatusForm(request.POST)
 
@@ -204,20 +196,22 @@ def taskstatuscreate(request):
             form.save()
             form = CreateTaskStatusForm()
             successCreate = True
-        else:
-            invalidForm = True
     else:
         form = CreateTaskStatusForm()
 
-    return render(request,
-            'taskstatus/create.html',
-            context_instance = RequestContext(request,
-        {
+    dic = {
             'title': 'Create new task status',
             'form': form,
-            'successAlerts': ('Created!',) if successCreate else list(),
-            'dangerAlerts': ('Something went wrong!',) if invalidForm else list()
-        }))
+        }
+
+    if successCreate:
+        dic['successAlerts'] = ('Created!',)
+    elif form.errors:
+        dic['dangerAlerts'] = getFieldErrors(form)
+
+    return render(request,
+            'taskstatus/create.html',
+            context_instance = RequestContext(request,dic))
 
 def taskstatuslist(request):
     """Renders task status list page."""
@@ -307,8 +301,6 @@ def taskedit(request, id):
             task.deleted = data['deleted']
             task.save()
             successEdit = True
-        else:
-            invalidForm = True
     else:
         form = EditTaskForm(instance=Task.objects.get(id = id))
 
@@ -352,8 +344,6 @@ def messagesend(request, username):
             message.save()
             form = SendMessageForm(initial={'username': User.objects.get_by_natural_key(username).username})
             successSend = True
-        else:
-            invalidForm = True
     else:
         form = SendMessageForm(initial={'username': User.objects.get_by_natural_key(username).username})
 
